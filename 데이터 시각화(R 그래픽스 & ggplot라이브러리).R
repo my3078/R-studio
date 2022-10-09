@@ -4,18 +4,18 @@ data("WalkTheDogs")
 
 #ggplot
 library(ggplot2)
-#»êÁ¡µµ
+#ì‚°ì ë„
 p1 <- ggplot(WalkTheDogs, aes(StepCount,Kcal))
 p2 <- p1 + geom_point(col="blue", shape=17) 
 p3 <- p2 + ggtitle("StepCount&Kcal")
 p3
-#°¡·ÎÇü ´©Àû ¸·´ë ±×·¡ÇÁ
+#ê°€ë¡œí˜• ëˆ„ì  ë§‰ëŒ€ ê·¸ë˜í”„
 p4 <- ggplot(WalkTheDogs, aes(factor(Weather)))
 p5 <- p4 + geom_bar(aes(fill=factor(Walk)))
 p6 <- p5 + coord_flip()
-p7 <- p6 + ggtitle("³¯¾¾¿¡ µû¸¥ »êÃ¥ ºĞÆ÷")
+p7 <- p6 + ggtitle("ë‚ ì”¨ì— ë”°ë¥¸ ì‚°ì±… ë¶„í¬")
 p7
-#¹éºĞÀ²À» Ç¥½ÃÇÑ ÆÄÀÌ Â÷Æ®
+#ë°±ë¶„ìœ¨ì„ í‘œì‹œí•œ íŒŒì´ ì°¨íŠ¸
 library(dplyr)
 count.day <- data.frame(
   class = c("cold", "rain", "shine"),
@@ -30,60 +30,60 @@ p8 <- ggplot(count.day, aes(x="",y = prop, fill = class))
 p9 <- p8 + geom_bar(width=1, stat="identity",color="black")  
 p10 <- p9 + coord_polar("y", start=0)  
 p11 <- p10 + geom_text(aes(y=lab.ypos, label=paste(prop, "%")), color="white")
-p12 <- p11 + ggtitle("³¯¾¾ ºĞÆ÷Æ÷")
+p12 <- p11 + ggtitle("ë‚ ì”¨ ë¶„í¬í¬")
 p12
-#±×·ìº° ¹Ğµµ ±×·¡ÇÁ
+#ê·¸ë£¹ë³„ ë°€ë„ ê·¸ë˜í”„
 p13 <- ggplot(WalkTheDogs, aes(x=Steps))
 p14 <- p13 + geom_density(aes(fill=factor(Walk)), alpha=0.5)
-p15 <- p14 + ggtitle("°­¾ÆÁö »êÃ¥ À¯¹«¿¡ µû¸¥ °ÉÀ½´Ü°è")
+p15 <- p14 + ggtitle("ê°•ì•„ì§€ ì‚°ì±… ìœ ë¬´ì— ë”°ë¥¸ ê±¸ìŒë‹¨ê³„")
 p15
-#Áı´ÜÈ­ ¹Ú½º ±×·¡ÇÁ
+#ì§‘ë‹¨í™” ë°•ìŠ¤ ê·¸ë˜í”„
 p16 <- ggplot(WalkTheDogs, aes(factor(Weather), Miles))
 p17 <- p16 + geom_boxplot()
 p18 <- p17 + facet_grid(~Walk)
-p19 <- p18 + ggtitle("»êÃ¥À¯Çü º° ³¯¾¾¿¡ µû¸¥ °ÉÀº °Å¸®")
+p19 <- p18 + ggtitle("ì‚°ì±…ìœ í˜• ë³„ ë‚ ì”¨ì— ë”°ë¥¸ ê±¸ì€ ê±°ë¦¬")
 p19
 
-#À°°¢Çü ÇÃ·Ô(hexbin plot)
+#ìœ¡ê°í˜• í”Œë¡¯(hexbin plot)
 p20 <- ggplot(WalkTheDogs, aes(x=StepCount, y=Kcal))
 p21 <- p20 + geom_hex()
 p21
 
-#R±×·¡ÇÈ½º
-#»êÁ¡µµ
+#Rê·¸ë˜í”½ìŠ¤
+#ì‚°ì ë„
 attach(WalkTheDogs)
 plot(Kcal~StepCount, col="blue", pch=17, type="p",main="StepCount&Kcal")
 grid()
-#°¡·ÎÇü ´©Àû ¸·´ë ±×·¡ÇÁ
+#ê°€ë¡œí˜• ëˆ„ì  ë§‰ëŒ€ ê·¸ë˜í”„
 counts <- table(Walk, Weather)
 counts
-barplot(axes=F, counts, horiz=TRUE, main="³¯¾¾¿¡ µû¸¥ »êÃ¥ ºĞÆ÷", col=c("red","blue"),legend=rownames(counts))
+barplot(axes=F, counts, horiz=TRUE, main="ë‚ ì”¨ì— ë”°ë¥¸ ì‚°ì±… ë¶„í¬", col=c("red","blue"),legend=rownames(counts))
 axis(side=1, col.axis="black")
 
-#¹éºĞÀ²À» Ç¥½ÃÇÑ ÆÄÀÌÂ÷Æ®
+#ë°±ë¶„ìœ¨ì„ í‘œì‹œí•œ íŒŒì´ì°¨íŠ¸
 slices <- c(69, 35, 119)
 lbls <- c("cold","rain","shine")
 pct <- round(slices/sum(slices)*100)
 lbls2 <- paste(lbls, " ", pct, "%", "")
-pie(slices, labels=lbls2, main="³¯¾¾ ºĞÆ÷")
+pie(slices, labels=lbls2, main="ë‚ ì”¨ ë¶„í¬")
 
-#±×·ìº° ¹Ğµµ ±×·¡ÇÁ
+#ê·¸ë£¹ë³„ ë°€ë„ ê·¸ë˜í”„
 install.packages("sm")
 library(sm)
 sm.density.compare(Steps, Walk)
 grid()
 legend("topright", fill=c("red","green"),legend=c("0","1"))
-title(main="°­¾ÆÁö »êÃ¥ À¯¹«¿¡ µû¸¥ °ÉÀ½¼ö")
+title(main="ê°•ì•„ì§€ ì‚°ì±… ìœ ë¬´ì— ë”°ë¥¸ ê±¸ìŒìˆ˜")
 
-#Áı´ÜÈ­ ¹Ú½º ±×·¡ÇÁ
+#ì§‘ë‹¨í™” ë°•ìŠ¤ ê·¸ë˜í”„
 boxplot(Miles~Weather+Walk, data=WalkTheDogs, 
         at=c(1:3, 5:7), col=c("red", "blue", "green"),
-        names=c("", "0", "", "", "1", ""),main="»êÃ¥À¯Çü º° ³¯¾¾¿¡ µû¸¥ °ÉÀº °Å¸®")
+        names=c("", "0", "", "", "1", ""),main="ì‚°ì±…ìœ í˜• ë³„ ë‚ ì”¨ì— ë”°ë¥¸ ê±¸ì€ ê±°ë¦¬")
 legend("topleft", fill=c("red","blue","green"),legend=c("cold","rain","shine"))
 abline(v=4, col="black")
 grid()
 
-#À°°¢Çü ÇÃ·Ô(hexbin plot)
+#ìœ¡ê°í˜• í”Œë¡¯(hexbin plot)
 install.packages("hexbin")
 library(hexbin)
 h <- hexbin(StepCount, Kcal)
